@@ -1,5 +1,17 @@
-import CanvasView from "../canvas/CanvasView"
+import { useEffect } from "react";
+import { generateDiagram } from "../services/api";
+import CanvasView from "../canvas/CanvasView";
 
 export default function Editor() {
-    return <CanvasView />
+    useEffect(() => {
+        async function test() {
+            const data = await generateDiagram();
+
+            console.log(data);
+        }
+
+        test();
+    }, []);
+
+    return <CanvasView />;
 }
