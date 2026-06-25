@@ -1,11 +1,15 @@
-import axios from "axios";
+const API_BASE = "http://127.0.0.1:8000";
 
-const api = axios.create({
-    baseURL: "http://127.0.0.1:8000",
-});
+export async function generateDiagram(prompt: string) {
+  const res = await fetch(`${API_BASE}/generate`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ prompt }),
+  });
 
-export async function generateDiagram() {
-    const response = await api.post("/generate");
+  if (!res.ok) {
+    throw new Error(`API error: ${res.status}`);
+  }
 
-    return response.data;
+  return res.json();
 }
